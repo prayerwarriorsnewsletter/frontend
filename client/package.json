@@ -1,4 +1,4 @@
-{
+a{
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +9,7 @@
     "firebase": "^7.10.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-firebaseui": "^4.1.0",
     "react-scripts": "3.4.0"
   },
   "scripts": {
