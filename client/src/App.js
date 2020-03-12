@@ -15,7 +15,6 @@ function App() {
     signInFlow: "popup",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
@@ -34,7 +33,12 @@ function App() {
       <header className="App-header">
         <div>
           {isLoggedIn ? (
-            <div>Logged In</div>
+            <div>
+              <div>Logged In</div>
+              <button onClick={() => firebase.auth().signOut()}>
+                Sign Out
+              </button>
+            </div>
           ) : (
             <StyledFirebaseAuth
               uiConfig={uiConfig}
