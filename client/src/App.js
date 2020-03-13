@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import Button from "@material-ui/core/Button";
 
 firebase.initializeApp({
   apiKey: "AIzaSyA7f9Wx_BtVnvvjNhW2Xae9cpBvGmCGUek",
@@ -35,9 +36,13 @@ function App() {
           {isLoggedIn ? (
             <div>
               <div>Logged In</div>
-              <button onClick={() => firebase.auth().signOut()}>
-                Sign Out
-              </button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => firebase.auth().signOut()}
+              >
+                Log Out
+              </Button>
             </div>
           ) : (
             <StyledFirebaseAuth
