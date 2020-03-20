@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import axios from "axios"
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import Button from "@material-ui/core/Button";
+
+import axiosBase from './utils/axiosAuth.js'
 
 firebase.initializeApp({
   apiKey: "AIzaSyA7f9Wx_BtVnvvjNhW2Xae9cpBvGmCGUek",
@@ -27,12 +30,34 @@ function App() {
     firebase.auth().onAuthStateChanged(user => {
       setIsLoggedIn(!!user);
     });
+    if (isLoggedIn){
+      checkingAxios()
+    }
   }, [isLoggedIn]);
+
+function checkingAxios(){
+  firebase.auth().currentUser.getIdToken(true)
+  .then((idToken) => {
+    axiosBase({
+      method: 'get',
+      url: '/',
+      headers: {
+        'AuthToken': idToken
+      }
+    }).then(res => console.log(res))
+    .catch(error => console.log(error))
+  })
+  .catch(error => console.log(error))
+  
+}
 
   return (
     <div className="App">
       <header className="App-header">
         <div>
+          {/* <button
+          onClick={checkingAxios}
+          >Testing backend</button> */}
           {isLoggedIn ? (
             <div>
               <div>Logged In</div>
