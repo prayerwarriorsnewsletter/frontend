@@ -17,18 +17,36 @@ const Navigation = (props) => {
 
   return (
     <div>
-      <Navbar color="faded" light>
+      <Navbar dark style={{ backgroundColor: "#2d3436" }} light>
         <NavbarBrand href="/" className="mr-auto">
-          prayer warriors
+          <h1>Prayer Warriors</h1>
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/home">Home</NavLink>
+              <NavLink
+                onClick={toggleNavbar}
+                style={{ color: "#ffafa" }}
+                tag={RRNavLink}
+                exact
+                to="/"
+                activeClassName="activeNavButton"
+              >
+                Home
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/prayers">Prayer List</NavLink>
+              <NavLink
+                onClick={toggleNavbar}
+                style={{ color: "#ffafa" }}
+                tag={RRNavLink}
+                exact
+                to="/prayers"
+                activeClassName="activeNavButton"
+              >
+                Prayer List
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
@@ -20,13 +20,17 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      <Route exact path="/" component={Home} />
-      <Route
-        exact
-        path="/prayers"
-        render={(props) => <PrayerList {...props} prayers={prayerData} />}
-      />
-      <Route path="/request" component={NewRequest} />
+      <div className="app-container">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/prayers"
+            render={(props) => <PrayerList {...props} prayers={prayerData} />}
+          />
+          <Route path="/request" component={NewRequest} />
+        </Switch>
+      </div>
     </div>
   );
 }
