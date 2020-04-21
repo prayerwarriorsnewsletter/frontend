@@ -9,15 +9,27 @@ import PrayerList from "./components/PrayerList";
 // import PrayerPage from './components/PrayerPage'
 import NewRequest from "./components/NewRequest";
 
-import prayerDataFile from "./prayerData";
+import { db, auth } from "./services/firebase";
+
+// import prayerDataFile from "./prayerData";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [prayerData, setPrayerData] = useState();
+  const [prayerData, setPrayerData] = useState(null);
 
   useEffect(() => {
-    setPrayerData(prayerDataFile);
-  }, [prayerData]);
+    db.collection("users")
+      .get()
+      .then((snapshot) => {
+        const userData = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          userData.push(data);
+        });
+        setPrayerData(userData);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div className="App">
@@ -28,7 +40,9 @@ function App() {
           <Route
             exact
             path="/prayers"
-            render={(props) => <PrayerList {...props} prayers={prayerData} />}
+            render={(props) => (
+              <PrayerList {...props} prayerData={prayerData} />
+            )}
           />
           <Route path="/request" component={NewRequest} />
         </Switch>
