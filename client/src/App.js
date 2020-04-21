@@ -8,9 +8,11 @@ import Home from "./components/Home";
 import PrayerList from "./components/PrayerList";
 // import PrayerPage from './components/PrayerPage'
 import NewRequest from "./components/NewRequest";
+
 import prayerDataFile from "./prayerData";
 
 function App() {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [prayerData, setPrayerData] = useState();
 
   useEffect(() => {
