@@ -44,8 +44,19 @@ const deleteRequest = (id) => {
     })
 }
 
+const updateRequest = (id, changes) => {
+    db.collection('users').doc(id).update({
+        name: changes.name,
+        email: changes.email,
+        request: changes.request,
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        resolved: changes.resolved
+    })
+}
+
 export {
     getAllRequests,
     postRequest,
-    deleteRequest
+    deleteRequest,
+    updateRequest
 }
