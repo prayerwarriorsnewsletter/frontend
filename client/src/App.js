@@ -1,82 +1,52 @@
 import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
+
 import "./App.css";
-import axios from "axios"
-import firebase from "firebase";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import Button from "@material-ui/core/Button";
 
-import axiosBase from './utils/axiosAuth.js'
+import Navigation from "./components/Navigation";
+import Home from "./components/Home";
+import PrayerList from "./components/PrayerList";
+// import PrayerPage from './components/PrayerPage'
+import NewRequest from "./components/NewRequest";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyA7f9Wx_BtVnvvjNhW2Xae9cpBvGmCGUek",
-  authDomain: "prayerwarriorsnewsletter.firebaseapp.com"
-});
+import { db, auth } from "./services/firebase";
+
+// import prayerDataFile from "./prayerData";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-      signInSuccess: () => false
-    }
-  };
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [prayerData, setPrayerData] = useState(null);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      setIsLoggedIn(!!user);
-    });
-    if (isLoggedIn){
-      checkingAxios()
-    }
-  }, [isLoggedIn]);
-
-function checkingAxios(){
-  firebase.auth().currentUser.getIdToken(true)
-  .then((idToken) => {
-    axiosBase({
-      method: 'get',
-      url: '/',
-      headers: {
-        'AuthToken': idToken
-      }
-    }).then(res => console.log(res))
-    .catch(error => console.log(error))
-  })
-  .catch(error => console.log(error))
-  
-}
+    db.collection("users")
+      .get()
+      .then((snapshot) => {
+        const userData = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          userData.push(data);
+        });
+        setPrayerData(userData);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          {/* <button
-          onClick={checkingAxios}
-          >Testing backend</button> */}
-          {isLoggedIn ? (
-            <div>
-              <div>Logged In</div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => firebase.auth().signOut()}
-              >
-                Log Out
-              </Button>
-            </div>
-          ) : (
-            <StyledFirebaseAuth
-              uiConfig={uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          )}
-        </div>
-      </header>
+      <Navigation />
+      <div className="app-container">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/prayers"
+            render={(props) => (
+              <PrayerList {...props} prayerData={prayerData} />
+            )}
+          />
+          <Route path="/request" component={NewRequest} />
+        </Switch>
+      </div>
     </div>
   );
 }

@@ -1,38 +1,84 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
-  text-align: center;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-container {
+  max-width: 900px;
+  margin: 30px auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.prayers-list-wrapper {
+  padding-top: 40px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-flow: row wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.prayer-card {
+  width: 30%;
+  max-width: 265px;
+  min-width: 220px;
+  margin: 50px 1%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.prayer-card:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.prayer-card > a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  display: block;
+  margin-top: 8px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.prayer-card > h2 {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  display: block;
+  margin-top: 8px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.prayer-card > p {
+  margin-top: 8px;
+}
+
+.prayer-info-wrapper {
+  padding: 36px;
+}
+
+.nav-buttons {
+  margin: 16px 36px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-buttons > button {
+  border: none;
+  padding: 6px 16px;
+  font-size: 16px;
+  background-color: #4285f4;
   color: white;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.2s;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-buttons > a:active {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+  transition-delay: 0s;
 }
