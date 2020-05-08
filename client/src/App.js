@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import PrayerList from "./components/PrayerList";
 // import PrayerPage from './components/PrayerPage'
 import NewRequest from "./components/NewRequest";
+import {getAllRequests} from './firebase-utils/server-calls.js'
 
 import { db, auth } from "./services/firebase";
 
@@ -18,17 +19,20 @@ function App() {
   const [prayerData, setPrayerData] = useState(null);
 
   useEffect(() => {
-    db.collection("users")
-      .get()
-      .then((snapshot) => {
-        const userData = [];
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          userData.push(data);
-        });
-        setPrayerData(userData);
-      })
-      .catch((error) => console.log(error));
+    setPrayerData(getAllRequests())
+    // console.log('requests', requests)
+    // setPrayerData(requests)
+    // db.collection("users")
+    //   .get()
+    //   .then((snapshot) => {
+    //     const userData = [];
+    //     snapshot.forEach((doc) => {
+    //       const data = doc.data();
+    //       userData.push(data);
+    //     });
+    //     setPrayerData(userData);
+    //   })
+    //   .catch((error) => console.log(error));
   }, []);
 
   return (
