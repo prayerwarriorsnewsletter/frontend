@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {postRequest} from '../firebase-utils/server-calls.js'
 
 const NewRequest = () => {
 
@@ -15,6 +16,7 @@ const NewRequest = () => {
     event.preventDefault()
     //request function goes here
     console.log(request)
+    postRequest(request)
   }
 
   return (
