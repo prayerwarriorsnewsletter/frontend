@@ -20,7 +20,7 @@ const NewRequest = () => {
   }
 
   return (
-    <div>
+    <div className='new-request-card'>
       <h2>New Request Form</h2>
       <form onSubmit = {handleSubmit}>
         <label>Name:</label>
