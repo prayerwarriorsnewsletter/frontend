@@ -21,10 +21,11 @@ const NewRequest = () => {
 
   return (
     <div className='new-request-card'>
-      <h2>New Request Form</h2>
-      <form onSubmit = {handleSubmit}>
+      <h2 className='form-title'>New Prayer Request</h2>
+      <form className = 'request-form' onSubmit = {handleSubmit}>
         <label>Name:</label>
         <input
+          className = 'request-input'
           type = 'text'
           name = 'name'
           value = {request.value}
@@ -32,6 +33,7 @@ const NewRequest = () => {
         />
         <label>Email:</label>
         <input
+          className = 'request-input'
           name = 'email'
           type = 'email'
           value = {request.value}
@@ -39,12 +41,13 @@ const NewRequest = () => {
         />
         <label>Prayer Request:</label>
         <textarea
+          className = 'request-text-input'
           type = 'text'
           name = 'request'
           value = {request.value}
           onChange = {handleChange}
         />
-        <button type='submit'>Submit</button>
+        <div className = 'submit-button' type='submit'>Submit</div>
       </form>
     </div>
   );
