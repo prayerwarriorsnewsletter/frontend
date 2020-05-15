@@ -7,7 +7,7 @@ const PrayerList = (props) => {
   console.log("prayerData", prayerData);
   return (
     <div>
-      {/* <NewRequest/> */}
+      <NewRequest/>
       {prayerData &&
         prayerData.map((prayer, index) => (
           <PrayerCard key={index} prayer={prayer} />
